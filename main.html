@@ -3,13 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Find Second Maximum Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<link rel="stylesheet" href="style.css">
 <body>
-    <h1>manoj</h1>
-    <h1>Hi</h1>
-    <p>Hello</p>
+
+    <h1>Find the Second Maximum Number</h1>
+    <input type="text" id="numberInput" placeholder="Enter numbers separated by commas">
+    <button onclick="findSecondMax()">Find Second Max</button>
+    <p id="result"></p>
+
+    <script>
+        function findSecondMax() {
+            const input = document.getElementById('numberInput').value;
+            const numbers = input.split(',').map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+
+            if (numbers.length < 2) {
+                document.getElementById('result').innerText = "Please enter at least two unique numbers.";
+                return;
+            }
+
+            let firstMax = -Infinity;
+            let secondMax = -Infinity;
+
+            for (let num of numbers) {
+                if (num > firstMax) {
+                    secondMax = firstMax;
+                    firstMax = num;
+                } else if (num > secondMax && num < firstMax) {
+                    secondMax = num;
+                }
+            }
+
+            if (secondMax === -Infinity) {
+                document.getElementById('result').innerText = "There is no second maximum number (all numbers may be the same).";
+            } else {
+                document.getElementById('result').innerText = "The second maximum number is: " + secondMax;
+            }
+        }
+    </script>
 
 </body>
 </html>
